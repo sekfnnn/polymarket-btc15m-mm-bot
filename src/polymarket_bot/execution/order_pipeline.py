@@ -8,9 +8,20 @@ class ValidationResult:
 
 
 class OrderPipeline:
-    def __init__(self, validator=None, position_guard=None):
+    def __init__(self, validator=None, position_guard=None, executor=None):
         self.validator = validator
         self.position_guard = position_guard
+        self.executor = executor
+
+    def process(self, order):
+        result = self.validate(order)
+        if not result.allowed:
+            return result
+
+        if self.executor:
+            return self.executor.route(order)
+
+        return result
 
     def validate(self, order):
         if self.validator and not self.validator.validate(order):
