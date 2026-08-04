@@ -1,0 +1,18 @@
+[project]
+name = "polymarket-btc15m-mm-bot"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+ "numpy",
+ "pandas",
+ "pydantic",
+ "httpx",
+ "websockets",
+ "sqlalchemy"
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "mypy"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
